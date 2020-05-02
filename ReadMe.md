@@ -1,4 +1,4 @@
-<img src="https://github.com/claudneysessa/br.com.trabalhofinalpoo.claudneysessa/blob/master/WebContent/assets/imagens/logo_github.png?raw=true">
+<img src="https://github.com/dev-anderson-santos/com.supervet/blob/master/WebContent/img/logo_estacio.png">
 
 # Projeto e Implementação Orientado a Objetos
 
