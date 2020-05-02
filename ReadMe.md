@@ -1,10 +1,10 @@
 <img src="https://github.com/dev-anderson-santos/com.supervet/blob/master/WebContent/img/logo_estacio.png">
 
-# Projeto e Implementação Orientado a Objetos
+# Projeto e Implementação Orientado a Objetos (NPG1401)
 
 Estácio de Sá<br/>
 Pós-Graduação em Engenharia de Software<br/>
-Prof: DENIS GONCALVES COPLE<br/>
+Prof: Denis Gonçalves Cople<br/>
 Aluno: Anderson Barbosa dos Santos<br/>
 Matrícula: 202001547509
 
@@ -14,14 +14,13 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
 
 ## Competências / Habilidades :
 
-<ul>
-  <li>Utilização da Arquitetura MVC</li>
-  <li>Desenvolvimento de sistemas para Web</li>
-  <li>Desenvolvimento usando o padrão de projeto FrontController e Command</li>
-  <li>Utilização do controle de sessão</li>
-  <li>Utilização de Middleware para acesso ao banco de dados</li>
-  <li>Execução de consultas SQL através de uma linguagem de programação</li>
-</ul>
+  ► Utilização da Arquitetura MVC
+  ► Desenvolvimento de sistemas para Web
+  ► Desenvolvimento usando o padrão de projeto FrontController e Command
+  ► Utilização do controle de sessão
+  ► Utilização de Middleware para acesso ao banco de dados
+  ► Execução de consultas SQL através de uma linguagem de programação
+
 
 ## Desenvolvimento:
 
