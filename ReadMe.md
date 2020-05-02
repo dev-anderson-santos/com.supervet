@@ -14,12 +14,12 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
 
 ## Competências / Habilidades :
 
-  ► Utilização da Arquitetura MVC
-  ► Desenvolvimento de sistemas para Web
-  ► Desenvolvimento usando o padrão de projeto FrontController e Command
-  ► Utilização do controle de sessão
-  ► Utilização de Middleware para acesso ao banco de dados
-  ► Execução de consultas SQL através de uma linguagem de programação
+  ► Utilização da Arquitetura MVC<br>
+  ► Desenvolvimento de sistemas para Web<br>
+  ► Desenvolvimento usando o padrão de projeto FrontController e Command<br>
+  ► Utilização do controle de sessão<br>
+  ► Utilização de Middleware para acesso ao banco de dados<br>
+  ► Execução de consultas SQL através de uma linguagem de programação<br>
 
 
 ## Desenvolvimento:
