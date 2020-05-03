@@ -56,22 +56,19 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
 
 # O projeto
 
-Ferramentass utilizadas:
+Foi desenvolvido um pequeno controle de cadastro de funcionários, clientes e consultas para uma clínica veterinária.
+Nele é possível que o cliente marque a consulta, assim como o médico marcá-la como atendida ou cancelar a mesma.
 
- - <a href="#eclipse">[Eclipse IDE]</a>(https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
- - [MySQL](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi)
- - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
- - [Bootstrap 4.1](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+O padrão MVC foi utilizado no desenvolvimento como pode ser visto na disposição dos arquivos na imagem abaixo:
 
-Foi usado o padrão MVC `(Model-View-Controller)` no desenvolvimento do projeto. Os arquivos que representam as páginas WEB foram desenvolvidas utilizando a tecnologia de `JSP (JavaServer Pages)`, que fazem parte da camada View, sendo as páginas acessadas pelo usuário.
+<img src="https://github.com/dev-anderson-santos/com.supervet/blob/master/WebContent/img/mvc.PNG">
 
-Para implementação do `Front-Controller` foi utilizada a tecnologia de `SERVLETS`, criando assim um controlador central capaz de gerir todas as requisições dos usuários e direcionalas as classes `COMMAND` estas que por sua vez implementam uma intergace padrão que fornece o contrato de implementação das mesmas.
+Na imagem abaixo, é possível ver o desenvolvimento do Front-Controller utilizando um Servlet responsável por receber os comandos e direcionar para a rota correspondente. A interface CommandInterface fornece um contrato onde todas as rotas deverão tê-lo para concluir a ação implementada em cada uma.
 
-Foram utilizadas `classes BEANS` para definição dos modelos, que contém as classes e arquivos relacionados ao banco de dados, estes são utilizados para a implementaçao e utilização das classes DAO qu também implementam interfaces padrão para o controle e manipulação das requisições do sistema as tabelas do banco de dados.
+<img src="https://github.com/dev-anderson-santos/com.supervet/blob/master/WebContent/img/command_front_servlet.PNG">
 
-Para implementação da `interface` padrão das `classes DAO`, foi utilizada a tecnologia de `generics` para estender o sistema de tipos permitindo assim que a interface opere em objetos de vários tipos, fornecendo segurança do tipo em tempo de compilação.
 
-A interface padrão dos `COMMANDS` segue o modelo:
+## Interface `COMMANDS`:
 
 ```
 package com.supervet.command;
@@ -80,14 +77,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface CommandInterface {
-
     public void executar(HttpServletRequest req, HttpServletResponse res);
-
 }
 ```
-A interface padrão as `Classes DAO` segue o modelo:
-
-Tabelas
+## `DAO Genérico`
 
 ```
 package com.supervet.dao;
@@ -117,42 +110,47 @@ public interface GenericDAO<T> {
 
 # Como Executar o Projeto
 
+Ferramentass utilizadas:
+
+ - [MySQL](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi)
+ - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
+ - [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
+ - [Bootstrap 4.1](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+
 ## Download do projeto
 
-<ul>
-  <ol>Faça o CLONE deste repositório.</ol>
-  <ol>Faça download do Eclipse IDE no link sugerido em <div id="eclipse">*Ferramentass utilizadas*</div>.</ol>
-</ul>
-
- 
-Faça Download das bibliotecas do SQLite: 
- 
- - [Link de Download](https://www.sqlite.org/download.html)
-
-Faça download do driver de conexão JDBC do SQLite
-
- - [Link de Download](https://bitbucket.org/xerial/sqlite-jdbc/downloads/)
+<ol>
+  <li>Faça o CLONE deste repositório.</li>
+  <li>Faça download e instalação do Eclipse IDE no link sugerido em Ferramentass utilizadas.</li>
+  <li>Faça download e instalação do MySQL no link sugerido em Ferramentass utilizadas.</li>
+  <li>O conector JDBC já está adicionado neste projeto.</li>
+  <li>Após configurar as ferramentas acima acesse: http://localhost:8080/SuperVet/controlador?xpto=Start</li>
+</ol>
 
 ## Configuração do Banco de Dados
 
-Para iniciar o projeto, configure o arquivo `ConnectionFactory.java` apontando para o local correto do banco de dados.<br/><br/>
-<i>Obs: Você pode alterar o driver JDBC para qualquer outro tipo de conexão, porém neste trabalho será utilizado o SQLite</i><br/>
+É necessário configurar o arquivo `ConnectionFactory.java` apontando para o local correpondente ao banco de dados.<br/><br/>
 
 ```
-package connection;
+package com.supervet.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
-	
+public class ConexaoJDBCFactory {
+
     public static Connection getConexao() throws SQLException, ClassNotFoundException {
-    	Class.forName("org.sqlite.JDBC");
-        // Altere AQUI!
-    	Connection sqliteConnection = DriverManager.getConnection("jdbc:sqlite:{CAMINHO PARA O BANCO DE DADOS}");
-    	return (Connection) sqliteConnection;
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_supervet?useTimezone=true&serverTimezone=UTC", "root", "");
+        return conexao;
     }
-	
+    
+    public static Connection getConexaoAux() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3308?useTimezone=true&serverTimezone=UTC", "root", "");
+        return conexao;
+    }
 }
+
 ```

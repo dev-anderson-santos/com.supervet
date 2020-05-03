@@ -3,11 +3,11 @@
   <display-name>SuperVet</display-name>
   <servlet>
     <description>Servlet controller da aplicação</description>
-    <servlet-name>ControllerServlet</servlet-name>
+    <servlet-name>SupervetControllerServlet</servlet-name>
     <servlet-class>com.supervet.controller.ControllerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ControllerServlet</servlet-name>
+    <servlet-name>SupervetControllerServlet</servlet-name>
     <url-pattern>/SuperVet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>

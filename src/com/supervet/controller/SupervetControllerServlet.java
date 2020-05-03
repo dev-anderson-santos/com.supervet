@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.supervet.command.CommandInterface;
 
 @WebServlet("/controlador")
-public class ControllerServlet extends HttpServlet {
+public class SupervetControllerServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ControllerServlet() {
+    public SupervetControllerServlet() {
         super();
     }
 
