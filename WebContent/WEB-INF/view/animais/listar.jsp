@@ -5,7 +5,7 @@
 <html>
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Super Vet - Consultas</title>
+        <title>Super Vet - Animais</title>
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="css/fontawesome.min.css" />

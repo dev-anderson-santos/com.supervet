@@ -5,9 +5,8 @@
 <html>
 <head>
         <meta charset="ISO-8859-1">
-        <title>Super Vet</title>
         
-        <title>SuperVet - Login</title>
+        <title>SuperVet - Consultas</title>
     	<link rel="stylesheet" href="css/bootstrap.min.css" />
     	<link rel="stylesheet" href="css/styles.css" />
     	<link rel="stylesheet" href="css/fontawesome.min.css" />
@@ -24,7 +23,7 @@
                     response.sendRedirect("controlador?xpto=Index");
                 }
             %>
-            <h2>Olá, ${cliente_logado.nome}!</h2>
+            <h2>Olï¿½, ${cliente_logado.nome}!</h2>
             <hr>
             <h3>Marcar consulta</h3>
             <form method="POST" action="controlador?xpto=CriarConsulta&acao=cadastrar">
@@ -42,7 +41,7 @@
 						<input type="date" class="form-control" id="data" name="data" required="required">
 					</div>
 					<div class="form-group col-md-2">
-						<label for="hora">Horário</label>	
+						<label for="hora">Horï¿½rio</label>	
 						<select class="form-control" id="hora" name="hora" required="required">
 							<option value="07:30">07:30</option>
 							<option value="08:00">08:00</option>
@@ -54,13 +53,13 @@
 						<label for="tipo">Tipo da consulta</label>
 						<select class="form-control" name="tipo" id="tipo" required="required">
 							<option value="Rotina">Rotina</option>
-							<option value="Vacinação">Vacinação</option>
-							<option value="Desparasitação">Desparasitação</option>
-							<option value="Aplicação de medicamento">Aplicação de medicamento</option>
+							<option value="Vacinaï¿½ï¿½o">Vacinaï¿½ï¿½o</option>
+							<option value="Desparasitaï¿½ï¿½o">Desparasitaï¿½ï¿½o</option>
+							<option value="Aplicaï¿½ï¿½o de medicamento">Aplicaï¿½ï¿½o de medicamento</option>
 						</select>
 					</div>
 					<div class="form-group col-md-4">
-						<label for="tipo">Veterinário</label>
+						<label for="tipo">Veterinï¿½rio</label>
 						<select class="form-control" name="id_funcionario" id="id_funcionario" required="required">
 							<c:forEach var="f" items="${ funcionarios_medicos }">
 								<option value="${ f.id_funcionario }">${ f.nome }</option>

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Super Vet - Novo funcionário</title>
+        <title>Super Vet - Editar funcionário</title>
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <link rel="stylesheet" href="css/fontawesome.min.css" />

@@ -6,7 +6,6 @@
         <meta charset="ISO-8859-1">
         <title>Super Vet</title>
         
-        <title>SuperVet - Login</title>
     	<link rel="stylesheet" href="css/bootstrap.min.css" />
     	<link rel="stylesheet" href="css/styles.css" />
     	<link rel="stylesheet" href="css/fontawesome.min.css" />
@@ -48,7 +47,7 @@
 			  <div class="clearfix">&nbsp;</div>
 		  </fieldset>
 		  <fieldset>
-		  	<legend>Endereço</legend>
+		  	<legend>Endereï¿½o</legend>
 			  <div class="form-row">
 				  <div class="form-group col-md-2">
 				    <label for="cep">CEP</label>
@@ -75,8 +74,8 @@
 				    <input type="text" class="form-control" name="complemento" placeholder="Apto, casa, etc" value="${ cliente_endereco.complemento }">
 			    </div>
 			    <div class="form-group col-md-2">
-			      <label for="inputCity">Número</label>
-			      <input type="text" class="form-control" name="numero" placeholder="Número" value="${ cliente_endereco.numero }">
+			      <label for="inputCity">Nï¿½mero</label>
+			      <input type="text" class="form-control" name="numero" placeholder="Nï¿½mero" value="${ cliente_endereco.numero }">
 			    </div>
 			    <div class="form-group col-md-2">
 			      <label for="inputZip">UF</label>
@@ -93,8 +92,8 @@
 			  </div>
 			  <div class="form-row">
 			  	<div class="form-group col-md-6">
-				    <label for="inputAddress2">Raça</label>
-				    <input type="text" class="form-control" name="raca" placeholder="Raça" value="${ cliente_animal.raca }">
+				    <label for="inputAddress2">Raï¿½a</label>
+				    <input type="text" class="form-control" name="raca" placeholder="Raï¿½a" value="${ cliente_animal.raca }">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="inputCity">Tipo</label>
@@ -113,7 +112,7 @@
 			      <label for="inputCity">Sexo</label>
 			      <select class="form-control" name="sexo">
 			      	<option value="1" ${ cliente_animal.sexo == 1 ? 'selected' : '' }>Macho</option>
-			      	<option value="2" ${ cliente_animal.sexo == 2 ? 'selected' : '' }>Fêmea</option>
+			      	<option value="2" ${ cliente_animal.sexo == 2 ? 'selected' : '' }>Fï¿½mea</option>
 			      </select>
 			    </div>
 			  </div>
