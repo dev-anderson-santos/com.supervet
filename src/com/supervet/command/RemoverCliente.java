@@ -13,6 +13,7 @@ import com.supervet.dao.AnimalDAO;
 import com.supervet.dao.ClienteDAO;
 import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.EnderecoDAO;
+import com.supervet.dao.FuncionariosDAO;
 import com.supervet.dao.PessoaDAO;
 import com.supervet.model.Animal;
 import com.supervet.model.Cliente;
@@ -28,7 +29,8 @@ public class RemoverCliente implements CommandInterface {
 
     @Override
     public void executar(HttpServletRequest req, HttpServletResponse res) {
-        try {                
+        try {       
+        	RequestDispatcher rd = null;
             int id_cliente = Integer.valueOf(req.getParameter("id"));
             
             Cliente cli = clienteDAO.getClienteById(id_cliente);            
@@ -47,11 +49,21 @@ public class RemoverCliente implements CommandInterface {
             animalDAO.delete(animal.getId_animal());
             clienteDAO.delete(id_cliente);
             enderecoDAO.delete(cli.getId_pessoa());
-            pessoaDAO.delete(cli.getId_pessoa());            
-                            
+            pessoaDAO.delete(cli.getId_pessoa());
+            
             req.setAttribute("mensagem", "Cliente removido com sucesso.");                
             
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
+        		
+        		req.setAttribute("count_fun", new FuncionariosDAO().count());
+        		req.setAttribute("count_cliente", new ClienteDAO().count());
+        		req.setAttribute("count_consulta", new ConsultaDAO().count());
+        		req.setAttribute("count_animal", new AnimalDAO().count());
+        		
+        		rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
+        	} else {
+        		rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+        	}
             rd.forward(req, res);
             
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

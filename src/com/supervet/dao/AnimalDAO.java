@@ -25,6 +25,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         while (rs.next()) {
             animais.add(new Animal(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
         }
+        conexao.close();
         return animais;
     }
 
@@ -42,6 +43,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        conexao.close();
         return ani;
     }
     
@@ -60,7 +62,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         while (rs.next()) {
             animal = new Animal(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8));
         }
-        
+        conexao.close();
         return animal;
     }
     
@@ -80,6 +82,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
             ps.setInt(7, ani.getId_cliente());
         }
         ps.execute();
+        conexao.close();
     }
 
     public void excluir(int id) throws SQLException, ClassNotFoundException {
@@ -106,6 +109,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         }
         ps.setInt(7, ani.getId_animal());
         ps.execute();
+        conexao.close();
     }
 
     public List<Animal> getAnimaisByCliente(int id) throws SQLException, ClassNotFoundException {
@@ -117,6 +121,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         while (rs.next()) {
             animais.add(new Animal(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
         }
+        conexao.close();
         return animais;
     }
 
@@ -130,6 +135,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         while (rs.next()) {
             animais.add(new Animal(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8)));
         }
+        conexao.close();
         return animais;
 	}
 
@@ -157,7 +163,8 @@ public class AnimalDAO implements GenericDAO<Animal>{
         ps.setInt(6, ani.getPeso());
         ps.setInt(7, ani.getId_cliente());
         
-        ps.executeUpdate();		
+        ps.executeUpdate();	
+        conexao.close();
 	}
 
 	@Override
@@ -176,6 +183,7 @@ public class AnimalDAO implements GenericDAO<Animal>{
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
           int numberOfRows = rs.getInt(1);
+          conexao.close();
           return numberOfRows;
         } else {
           return 0;

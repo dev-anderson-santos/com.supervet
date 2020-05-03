@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.supervet.dao.AnimalDAO;
+import com.supervet.dao.ClienteDAO;
+import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.EnderecoDAO;
 import com.supervet.dao.FuncionariosDAO;
 import com.supervet.dao.PessoaDAO;
@@ -26,6 +29,7 @@ public class AlterarFuncionario implements CommandInterface {
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         
         try {
+        	RequestDispatcher rd = null;
         	Funcionario f = funcionarioDAO.getById(Integer.parseInt(req.getParameter("id")));
             if (req.getParameter("acao") != null && req.getParameter("acao").equals("alterar")) {            	
             	
@@ -55,7 +59,6 @@ public class AlterarFuncionario implements CommandInterface {
                 endereco.setNumero(numero);
                 endereco.setId_pessoa(f.getId_pessoa());
                 
-                System.out.println(endereco);
                 Pessoa pessoa = new Pessoa(f.getId_pessoa(), _nome, email, cpf, telefone, endereco);
                 pessoaDAO.edit(pessoa);                
                 
@@ -69,12 +72,22 @@ public class AlterarFuncionario implements CommandInterface {
                 
                 funcionarioDAO.edit(f);
                 req.setAttribute("mensagem", "Os dados foram alterados");
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+                if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
+            		
+            		req.setAttribute("count_fun", funcionarioDAO.count());
+            		req.setAttribute("count_cliente", new ClienteDAO().count());
+            		req.setAttribute("count_consulta", new ConsultaDAO().count());
+            		req.setAttribute("count_animal", new AnimalDAO().count());
+            		
+            		rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
+            	} else {
+            		rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            	}
                 rd.forward(req, res);
             } else {                
                 req.setAttribute("funcionario", funcionarioDAO.getFuncionarioById(f.getId_funcionario()));                
                 req.setAttribute("funcionario_endereco", enderecoDAO.getById(f.getId_pessoa()));
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/funcionarios/alterar.jsp");
+                rd = req.getRequestDispatcher("/WEB-INF/view/funcionarios/alterar.jsp");
                 rd.forward(req, res);
             }
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

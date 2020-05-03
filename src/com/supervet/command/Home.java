@@ -13,6 +13,7 @@ import com.supervet.dao.AnimalDAO;
 import com.supervet.dao.ClienteDAO;
 import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.FuncionariosDAO;
+import com.supervet.dao.SetupDAO;
 
 public class Home implements CommandInterface {
 	
@@ -26,7 +27,11 @@ public class Home implements CommandInterface {
         
     	RequestDispatcher rd = null;
     	try {
-        	
+    		boolean checa_cadastro = new SetupDAO().checaDatabase();
+    		if(!checa_cadastro) {
+    			req.setAttribute("mensagem", "É necessário gerar a base de dados antes de acessar");
+    			rd = req.getRequestDispatcher("/WEB-INF/index.jsp");
+    		}
         	if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
         		
         		req.setAttribute("count_fun", funDAO.count());
@@ -41,7 +46,7 @@ public class Home implements CommandInterface {
         	
             rd.forward(req, res);
         } catch (ServletException | IOException | ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MostrarFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 

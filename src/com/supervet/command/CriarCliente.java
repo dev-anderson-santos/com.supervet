@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.supervet.dao.AnimalDAO;
 import com.supervet.dao.ClienteDAO;
+import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.EnderecoDAO;
+import com.supervet.dao.FuncionariosDAO;
 import com.supervet.dao.PessoaDAO;
 import com.supervet.model.Animal;
 import com.supervet.model.Cliente;
@@ -29,6 +31,7 @@ public class CriarCliente implements CommandInterface {
     @Override
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         try {
+        	RequestDispatcher rd = null;
             if (req.getParameter("acao") != null && req.getParameter("acao").equals("cadastrar")) {
                 
             	String nome_cliente = req.getParameter("nome");
@@ -68,10 +71,20 @@ public class CriarCliente implements CommandInterface {
                 animalDAO.adicionar(animail);
                 
                 req.setAttribute("mensagem", "Cliente cadastrado com sucesso.");
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+                if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
+            		
+            		req.setAttribute("count_fun", new FuncionariosDAO().count());
+            		req.setAttribute("count_cliente", new ClienteDAO().count());
+            		req.setAttribute("count_consulta", new ConsultaDAO().count());
+            		req.setAttribute("count_animal", new AnimalDAO().count());
+            		
+            		rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
+            	} else {
+            		rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            	}
                 rd.forward(req, res);                
             } else {
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/clientes/criar.jsp");
+                rd = req.getRequestDispatcher("/WEB-INF/view/clientes/criar.jsp");
                 rd.forward(req, res);
             }
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

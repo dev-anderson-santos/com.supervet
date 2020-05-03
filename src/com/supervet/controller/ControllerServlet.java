@@ -19,7 +19,6 @@ public class ControllerServlet extends HttpServlet {
      */
     public ControllerServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

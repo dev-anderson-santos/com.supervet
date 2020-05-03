@@ -14,39 +14,9 @@ import com.supervet.model.Pessoa;
 
 public class EnderecoDAO implements GenericDAO<Endereco>{
 
-    public List<Cliente> getClientes() throws SQLException, ClassNotFoundException {
-        Connection conexao = ConexaoJDBCFactory.getConexao();
-        PreparedStatement ps = conexao.prepareStatement(
-        		"SELECT ID_FUNCIONARIO, NOME, EMAIL, CPF, TELEFONE, SENHA, CARGO "
-        		+ "FROM TB_FUNCIONARIOS "
-        		+ "INNER JOIN TB_PESSOAS P ON P.ID_PESSOA = TB_FUNCIONARIOS.ID_PESSOA"
-        		);
-        ResultSet rs = ps.executeQuery();
-        List<Cliente> clientes = new ArrayList<>();
-        while (rs.next()) {
-        	clientes.add(new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
-        }
-        return clientes;
-    }
-
-    public Cliente getClienteById(int id) throws SQLException, ClassNotFoundException {
-        Connection conexao = ConexaoJDBCFactory.getConexao();
-        PreparedStatement ps = conexao.prepareStatement(
-        		"SELECT ID_CLIENTE, NOME, EMAIL, CPF, TELEFONE, MATRICULA "
-        		+ "FROM TB_CLIENTES C "
-        		+ "INNER JOIN TB_PESSOAS P ON P.ID_PESSOA = C.ID_PESSOA "
-        		+ "WHERE ID_CLIENTE = ?"
-        		);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        Cliente cli = null;
-        if (rs != null && rs.next()) {
-            cli = new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
-        } else {
-            System.out.println("ERRO, VAZIO");
-        }
-        return cli;
-    }
+	public EnderecoDAO() {
+		
+	}
 
     public void adicionar(Endereco endereco) throws SQLException, ClassNotFoundException {
         Connection conexao = ConexaoJDBCFactory.getConexao();
@@ -61,25 +31,7 @@ public class EnderecoDAO implements GenericDAO<Endereco>{
         ps.setInt(8, endereco.getId_pessoa());
         
         ps.execute();
-    }
-
-    public void excluir(int id) throws SQLException, ClassNotFoundException {
-        Connection conexao = ConexaoJDBCFactory.getConexao();
-        PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_CLIENTES WHERE ID_CLIENTE = ?");
-        ps.setInt(1, id);
-        ps.execute();
-    }
-
-    public boolean checaLoginCliente(int usuario, String matricula) throws SQLException, ClassNotFoundException {
-        Connection conexao = ConexaoJDBCFactory.getConexao();
-        PreparedStatement ps = conexao.prepareStatement("SELECT MATRICULA FROM TB_CLIENTES WHERE ID_CLIENTE = ?");
-        ps.setInt(1, usuario);
-        ResultSet rs = ps.executeQuery();
-        if (rs != null && rs.next()) {
-            return (matricula.equals(rs.getString(1)));
-        } else {
-            return false;
-        }
+        conexao.close();
     }
 
 	@Override
@@ -102,6 +54,7 @@ public class EnderecoDAO implements GenericDAO<Endereco>{
         while (rs.next()) {
             e = new Endereco(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getInt(9));
         } 
+        conexao.close();
         return e;
 	}
 
@@ -118,7 +71,14 @@ public class EnderecoDAO implements GenericDAO<Endereco>{
         ps.setInt(7, endereco.getNumero());
         ps.setInt(8, endereco.getId_pessoa());
         
-        ps.execute();		
+        boolean checa_cadastro = new SetupDAO().checaDatabase();
+		if(checa_cadastro) {
+			PreparedStatement pss = conexao.prepareStatement("USE `db_supervet`;");
+	        pss.execute(); 
+		}
+        
+        ps.execute();
+        conexao.close();
 	}
 
 	@Override
@@ -135,6 +95,7 @@ public class EnderecoDAO implements GenericDAO<Endereco>{
         ps.setInt(8, endereco.getId_pessoa());
         
         ps.executeUpdate();
+        conexao.close();
 		
 	}
 
@@ -144,6 +105,7 @@ public class EnderecoDAO implements GenericDAO<Endereco>{
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_ENDERECOS WHERE ID_PESSOA = ?");
         ps.setInt(1, id);
         ps.execute();	
+        conexao.close();
 	}
 
 	@Override

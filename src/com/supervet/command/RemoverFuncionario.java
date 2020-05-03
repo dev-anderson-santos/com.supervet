@@ -50,9 +50,13 @@ public class RemoverFuncionario implements CommandInterface {
             funcionarioDao.delete(id);
             pessoaDAO.delete(idPessoa);
                             
+            req.setAttribute("count_fun", funcionarioDao.count());
+    		req.setAttribute("count_cliente", new ClienteDAO().count());
+    		req.setAttribute("count_consulta", new ConsultaDAO().count());
+    		req.setAttribute("count_animal", new AnimalDAO().count());
             req.setAttribute("mensagem", "Funcionário removido com sucesso.");                
             
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
             rd.forward(req, res);
             
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

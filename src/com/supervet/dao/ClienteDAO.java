@@ -27,6 +27,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         while (rs.next()) {
         	clientes.add(new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
         }
+        conexao.close();
         return clientes;
     }
 
@@ -46,6 +47,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        conexao.close();
         return cli;
     }
     
@@ -65,6 +67,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        conexao.close();
         return cli;
     }
 
@@ -77,11 +80,11 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         ps.executeUpdate();
         
         ResultSet rs = ps.getGeneratedKeys();
-        if (rs != null && rs.next()) {
+        if (rs != null && rs.next()) {        	
             return rs.getInt(1);
         } else {
             return 0;
-        }
+        }        
     }
 
     public void excluir(int id) throws SQLException, ClassNotFoundException {
@@ -89,6 +92,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_CLIENTES WHERE ID_CLIENTE = ?");
         ps.setInt(1, id);
         ps.executeQuery();
+        conexao.close();
         
     }
 
@@ -97,6 +101,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         PreparedStatement ps = conexao.prepareStatement("UPDATE TB_CLIENTES SET MATRICULA = ? WHERE ID_CLIENTE = ?");        
         ps.setString(1, cli.getMatricula());
         ps.execute();
+        conexao.close();
     }
 
     public boolean checaLoginCliente(String matricula) throws SQLException, ClassNotFoundException {
@@ -105,7 +110,12 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         ps.setString(1, matricula);
         ResultSet rs = ps.executeQuery();
         if (rs != null && rs.next()) {
-            return (matricula.equals(rs.getString(2)));
+        	
+        	boolean result = (matricula.equals(rs.getString(2)));
+            
+        	ps.close();
+            conexao.close();
+            return result;        	
         } else {
             return false;
         }
@@ -125,6 +135,8 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         while (rs.next()) {
         	clientes.add(new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
         }
+        
+        conexao.close();
         return clientes;
 	}
 
@@ -145,6 +157,8 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        
+        conexao.close();
         return cli;
 	}
 
@@ -163,6 +177,8 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 //        } else {
 //            return 0;
 //        }
+        
+        conexao.close();
 		
 	}
 
@@ -171,7 +187,9 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 		Connection conexao = ConexaoJDBCFactory.getConexao();
         PreparedStatement ps = conexao.prepareStatement("UPDATE TB_CLIENTES SET MATRICULA = ? WHERE ID_CLIENTE = ?");        
         ps.setString(1, cli.getMatricula());
-        ps.execute();		
+        ps.execute();	
+        
+        conexao.close();
 	}
 
 	@Override
@@ -180,7 +198,9 @@ public class ClienteDAO implements GenericDAO<Cliente> {
 		Connection conexao = ConexaoJDBCFactory.getConexao();
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_CLIENTES WHERE ID_CLIENTE = ?");
         ps.setInt(1, id);
-        ps.execute();		
+        ps.execute();	
+        
+        conexao.close();
 	}
 
 	@Override
@@ -190,10 +210,13 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
           int numberOfRows = rs.getInt(1);
+          
+          conexao.close();
           return numberOfRows;
         } else {
           return 0;
-        }      
+        }     
+        
 		
 	}
 

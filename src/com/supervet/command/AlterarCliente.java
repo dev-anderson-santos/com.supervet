@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.supervet.dao.AnimalDAO;
 import com.supervet.dao.ClienteDAO;
+import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.EnderecoDAO;
 import com.supervet.dao.FuncionariosDAO;
 import com.supervet.dao.PessoaDAO;
@@ -31,6 +32,7 @@ public class AlterarCliente implements CommandInterface {
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         
         try {
+        	RequestDispatcher rd = null;
         	Cliente c = clienteDAO.getById(Integer.parseInt(req.getParameter("id")));
             if (req.getParameter("acao") != null && req.getParameter("acao").equals("alterar")) {            	
             	
@@ -73,13 +75,23 @@ public class AlterarCliente implements CommandInterface {
                 animalDAO.edit(animail);
                 
                 req.setAttribute("mensagem", "Dados salvos com sucesso.");
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+                if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
+            		
+            		req.setAttribute("count_fun", new FuncionariosDAO().count());
+            		req.setAttribute("count_cliente", new ClienteDAO().count());
+            		req.setAttribute("count_consulta", new ConsultaDAO().count());
+            		req.setAttribute("count_animal", new AnimalDAO().count());
+            		
+            		rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
+            	} else {
+            		rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            	}
                 rd.forward(req, res);
             } else {
                 req.setAttribute("cliente", clienteDAO.getClienteById(c.getId_cliente()));                
                 req.setAttribute("cliente_endereco", enderecoDAO.getById(c.getId_pessoa()));
                 req.setAttribute("cliente_animal", animalDAO.getAnimalByClienteId(c.getId_cliente()));
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/clientes/alterar.jsp");
+                rd = req.getRequestDispatcher("/WEB-INF/view/clientes/alterar.jsp");
                 rd.forward(req, res);
             }
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

@@ -11,4 +11,10 @@ public class ConexaoJDBCFactory {
         Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_supervet?useTimezone=true&serverTimezone=UTC", "root", "");
         return conexao;
     }
+    
+    public static Connection getConexaoAux() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3308?useTimezone=true&serverTimezone=UTC", "root", "");
+        return conexao;
+    }
 }

@@ -3,6 +3,7 @@
 <%@page import="com.supervet.model.Funcionario"%>
 <%@page import="com.supervet.dao.FuncionariosDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +32,7 @@
 			                </div>
 			               	<div class="form-group">          
 				                <label>Senha:</label>
-				                <input type="password" class="form-control" name="senha" id="login-senha" placeholder="1234" value="1234">
+				                <input type="password" class="form-control" name="senha" id="login-senha" placeholder="admin" value="admin">
 			                </div>
 		                </div>		                
 		                
@@ -59,7 +60,7 @@
 		                String senha = request.getParameter("senha");
 		                String email = request.getParameter("email");
 		                FuncionariosDAO funcDAO = new FuncionariosDAO();
-		           		                
+		           		             
 		                if (senha != null && !senha.isEmpty()) {
 		                    if (funcDAO.validarLogin(email, senha)) {
 		                        Funcionario func = funcDAO.getFuncionario(email, senha);
@@ -89,8 +90,12 @@
 		                	}
 		                }
 		            %>	
-	            </div>     
-	                 <h2><font color="blue">${mensagem}</font></h2> 
+	            </div>
+	            <c:if test="${mensagem != null}">
+		            <div class="alert alert-info" role="alert">
+					  	${mensagem}
+					</div>
+				</c:if>	            
 	        </div>
         </div>
     </body>

@@ -12,7 +12,11 @@ import com.supervet.model.Pessoa;
 
 public class FuncionariosDAO implements GenericDAO<Funcionario>{
 
-    public List<Funcionario> getFuncionarios() throws SQLException, ClassNotFoundException {
+    public FuncionariosDAO() {
+    	
+	}
+	
+	public List<Funcionario> getFuncionarios() throws SQLException, ClassNotFoundException {
         Connection conexao = ConexaoJDBCFactory.getConexao();
         PreparedStatement ps = conexao.prepareStatement(
         		"SELECT F.ID_funcionario, P.NOME, P.EMAIL, P.CPF, P.TELEFONE, F.CARGO, F.SENHA "
@@ -24,6 +28,8 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         while (rs.next()) {
             funcionarios.add(new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
         }
+        
+        conexao.close();
         return funcionarios;
     }
 
@@ -43,6 +49,8 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        
+        conexao.close();
         return func;
     }
     
@@ -63,6 +71,8 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        
+        conexao.close();
         return func;
     }
 
@@ -73,6 +83,9 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         ps.setString(2, func.getCargo());
         ps.setInt(3, func.getId_pessoa());
         ps.execute();
+        
+        
+        conexao.close();
     }
 
     public void excluir(int id) throws SQLException, ClassNotFoundException {
@@ -80,6 +93,9 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_FUNCIONARIOS WHERE ID_FUNCIONARIO = ?");
         ps.setInt(1, id);
         ps.execute();
+        
+        
+        conexao.close();
     }
 
     public void editar(Funcionario func) throws SQLException, ClassNotFoundException {
@@ -89,6 +105,9 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         ps.setString(7, func.getCargo());
         ps.setInt(8, func.getId_funcionario());
         ps.execute();
+        
+        
+        conexao.close();
     }
 
     public boolean validarLogin(String email, String senha) throws SQLException, ClassNotFoundException {
@@ -101,6 +120,13 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         		);
         ps.setString(1, email);
         ps.setString(2, senha);
+        
+        boolean checa_cadastro = new SetupDAO().checaDatabase();
+		if(checa_cadastro) {
+			PreparedStatement pss = conexao.prepareStatement("USE `db_supervet`;");
+	        pss.execute(); 
+		}
+        
         ResultSet rs = ps.executeQuery();
         if (rs != null && rs.next()) {
             return (senha.equals(rs.getString(1)) && email.equalsIgnoreCase(rs.getString(2)));
@@ -122,6 +148,8 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         while (rs.next()) {
             funcionarios.add(new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
         }
+        
+        conexao.close();
         return funcionarios;
 	}
 
@@ -146,12 +174,28 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         while (rs.next()) {
             f = new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
         }
+        
+        conexao.close();
         return f;
 	}
 
 	@Override
-	public void insert(Funcionario value) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+	public void insert(Funcionario func) throws SQLException, ClassNotFoundException {
+		Connection conexao = ConexaoJDBCFactory.getConexao();
+        PreparedStatement ps = conexao.prepareStatement("INSERT INTO TB_FUNCIONARIOS(SENHA, CARGO, ID_PESSOA) VALUES (?,?,?)");        
+        ps.setString(1, func.getSenha());
+        ps.setString(2, func.getCargo());
+        ps.setInt(3, func.getId_pessoa());
+        
+        boolean checa_cadastro = new SetupDAO().checaDatabase();
+		if(checa_cadastro) {
+			PreparedStatement pss = conexao.prepareStatement("USE `db_supervet`;");
+	        pss.execute(); 
+		}
+        
+        ps.execute();
+        
+        conexao.close();
 		
 	}
 
@@ -163,7 +207,8 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         ps.setString(2, f.getCargo());
         ps.setInt(3, f.getId_funcionario());
         ps.execute();
-		
+
+        conexao.close();
 	}
 
 	@Override
@@ -171,7 +216,9 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
 		Connection conexao = ConexaoJDBCFactory.getConexao();
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_FUNCIONARIOS WHERE ID_FUNCIONARIO = ?");
         ps.setInt(1, id);
-        ps.execute();		
+        ps.execute();
+        
+        conexao.close();
 	}
 
 	@Override
@@ -181,8 +228,13 @@ public class FuncionariosDAO implements GenericDAO<Funcionario>{
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
           int numberOfRows = rs.getInt(1);
+                    
+          conexao.close();
           return numberOfRows;
         } else {
+        	
+        	
+          conexao.close();
           return 0;
         }
 	}

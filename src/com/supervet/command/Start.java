@@ -10,22 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.supervet.dao.SetupDAO;
 
-public class Index implements CommandInterface {
+public class Start implements CommandInterface {
 	
     @Override
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         try {
-        	RequestDispatcher rd = null;
-        	boolean checa_cadastro = new SetupDAO().checaDatabase();
-    		if(!checa_cadastro) {
-    			req.setAttribute("mensagem", "É necessário gerar a base de dados antes de acessar");
-    			req.getRequestDispatcher("/WEB-INF/start.jsp");
-    		} else {
-    			rd = req.getRequestDispatcher("/WEB-INF/index.jsp");    			
-    		}
-            
+        	
+    		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/start.jsp");
             rd.forward(req, res);
-        } catch (ServletException | IOException | ClassNotFoundException | SQLException ex) {
+        } catch (ServletException | IOException ex) {
         	ex.printStackTrace();
         	System.out.println("Ocorreu um erro Index: " + ex.getMessage());
         }

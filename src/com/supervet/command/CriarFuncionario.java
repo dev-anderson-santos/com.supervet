@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.supervet.dao.AnimalDAO;
 import com.supervet.dao.ClienteDAO;
+import com.supervet.dao.ConsultaDAO;
 import com.supervet.dao.EnderecoDAO;
 import com.supervet.dao.FuncionariosDAO;
 import com.supervet.dao.PessoaDAO;
@@ -30,6 +31,7 @@ public class CriarFuncionario implements CommandInterface {
     @Override
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         try {
+        	RequestDispatcher rd = null;
             if (req.getParameter("acao") != null && req.getParameter("acao").equals("cadastrar")) {
                 
             	String _nome = req.getParameter("nome");
@@ -66,10 +68,23 @@ public class CriarFuncionario implements CommandInterface {
                 funcionarioDAO.adicionar(funcionario);
                                 
                 req.setAttribute("mensagem", "Funcionário cadastrado com sucesso.");
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+                
+                if(req.getSession().getAttribute("cargo_logado").equals("admin")) {
+            		
+            		req.setAttribute("count_fun", funcionarioDAO.count());
+            		req.setAttribute("count_cliente", new ClienteDAO().count());
+            		req.setAttribute("count_consulta", new ConsultaDAO().count());
+            		req.setAttribute("count_animal", new AnimalDAO().count());
+            		
+            		rd = req.getRequestDispatcher("/WEB-INF/view/dashboard.jsp");
+            	} else {
+            		rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
+            	}
+                
+//                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/home.jsp");
                 rd.forward(req, res);                
             } else {
-                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/funcionarios/criar.jsp");
+                rd = req.getRequestDispatcher("/WEB-INF/view/funcionarios/criar.jsp");
                 rd.forward(req, res);
             }
         } catch (SQLException | ClassNotFoundException | ServletException | IOException ex) {

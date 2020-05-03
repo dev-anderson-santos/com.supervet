@@ -25,6 +25,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         while (rs.next()) {
             consultas.add(new Consulta(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), new AnimalDAO().getAnimalById(rs.getInt(6)), new FuncionariosDAO().getFuncionarioById(rs.getInt(7))));
         }
+        conexao.close();
         return consultas;
     }
     
@@ -46,6 +47,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         		new Consulta(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), new AnimalDAO().getAnimalById(rs.getInt(6)), new FuncionariosDAO().getFuncionarioById(rs.getInt(7)))
             );
         }
+        conexao.close();
         return consultas;
     }
     
@@ -64,6 +66,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         while (rs.next()) {            
     		new Consulta(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), new AnimalDAO().getAnimalById(rs.getInt(6)), new FuncionariosDAO().getFuncionarioById(rs.getInt(7)));
         }
+        conexao.close();
         return consulta;
     }
     
@@ -85,6 +88,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         		new Consulta(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), new AnimalDAO().getAnimalById(rs.getInt(6)), new FuncionariosDAO().getFuncionarioById(rs.getInt(7)))
             );
         }
+        conexao.close();
         return consultas;
     }
 
@@ -103,6 +107,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         } else {
             System.out.println("ERRO, Não há dados a retornar");
         }
+        conexao.close();
         return consulta;
     }
     
@@ -121,6 +126,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        conexao.close();
         return consulta;
     }
 
@@ -136,6 +142,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         ps.setInt(5, consulta.getAnimal().getId_animal());
         ps.setInt(6, consulta.getFuncionario().getId_funcionario());
         ps.execute();
+        conexao.close();
     }
 
     public void excluir(int id) throws SQLException, ClassNotFoundException {
@@ -154,6 +161,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         ps.setInt(4, consulta.getStatus());
         ps.setInt(5, consulta.getAnimal().getId_animal());
         ps.execute();
+        conexao.close();
     }
 
 	@Override
@@ -178,6 +186,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         } else {
             System.out.println("ERRO, VAZIO");
         }
+        conexao.close();
         return consulta;
 	}
 
@@ -195,6 +204,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         ps.setInt(1, consulta.getStatus());
         ps.setInt(2, consulta.getId_consulta());
         ps.executeUpdate();
+        conexao.close();
 		
 	}
 
@@ -204,6 +214,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         PreparedStatement ps = conexao.prepareStatement("DELETE FROM TB_CONSULTAS WHERE ID_CONSULTA = ?");
         ps.setInt(1, id);
         ps.execute();
+        conexao.close();
 	}
 
 	@Override
@@ -213,6 +224,7 @@ public class ConsultaDAO implements GenericDAO<Consulta>{
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
           int numberOfRows = rs.getInt(1);
+          conexao.close();
           return numberOfRows;
         } else {
           return 0;

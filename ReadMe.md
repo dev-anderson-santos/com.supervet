@@ -31,7 +31,7 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
     <li>Arquitetura é obrigatória</li>
   </ul>
   <li>Definição do domínio do negócio.</li>
-  <li>modelo deverá possuir no mínimo:</li>
+  <li>Modelo deverá possuir no mínimo:</li>
   <ul>
     <li>Uma herança de 3 níveis;</li>
     <li>Uma associação;</li>
@@ -51,7 +51,7 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
 
 <ul>
   <li>Aluno deverá implementar um CRUD utilizando os conhecimentos adquiridos no conteúdo da disciplina, aplicando as tecnologias ministradas durante o curso.</li>
-  <li>programa deverá ser acompanhado da descrição da aplicação implementada</li>
+  <li>Programa deverá ser acompanhado da descrição da aplicação implementada</li>
 </ul>
 
 # Sobre o Projeto
@@ -59,10 +59,9 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
 O projeto foi desenvolvido utilizando:
 
  - [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
- - [SQLite](https://www.sqlite.org/download.html)
+ - [MySQL](https://www.sqlite.org/download.html)
  - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
  - [Bootstrap 4.1](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
- - [Datatable.net](https://datatables.net/)
 
 Foi usado o padrão MVC `(Model-View-Controller)` no desenvolvimento do projeto. Os arquivos que representam as páginas WEB foram desenvolvidas utilizando a tecnologia de `JSP (JavaServer Pages)`, que fazem parte da camada View, sendo as páginas acessadas pelo usuário.
 
