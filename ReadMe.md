@@ -80,7 +80,7 @@ public interface CommandInterface {
     public void executar(HttpServletRequest req, HttpServletResponse res);
 }
 ```
-## `DAO Genérico`
+## `DAO Genérico` comum
 
 ```
 package com.supervet.dao;
@@ -91,45 +91,20 @@ import java.util.List;
 public interface GenericDAO<T> {
 
 	public List<T> getAll() throws SQLException, ClassNotFoundException;
-
 	public T getById(int id) throws SQLException, ClassNotFoundException;
-
 	public void insert(T value) throws SQLException, ClassNotFoundException;
-
 	public void edit(T value) throws SQLException, ClassNotFoundException;
-
-	public void delete(int id) throws SQLException, ClassNotFoundException;
-	
-	public int count() throws SQLException, ClassNotFoundException;
-	
+	public void delete(int id) throws SQLException, ClassNotFoundException;	
+	public int count() throws SQLException, ClassNotFoundException;	
 	public int lastId() throws SQLException, ClassNotFoundException;
 }
 
 ```
 ## Foi necessário criar outros métodos nas classes DAO devido a necessidade.
 
-# Como Executar o Projeto
+## Configuração do Banco de Dados - Middleware JDBC
 
-Ferramentass utilizadas:
-
- - [MySQL](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi)
- - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
- - [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
- - [Bootstrap 4.1](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
-
-## Download do projeto
-
-<ol>
-  <li>Faça o CLONE deste repositório.</li>
-  <li>Faça download e instalação do Eclipse IDE no link sugerido em Ferramentass utilizadas.</li>
-  <li>Faça download e instalação do MySQL no link sugerido em Ferramentass utilizadas.</li>
-  <li>O conector JDBC já está adicionado neste projeto.</li>
-  <li>Após configurar as ferramentas acima acesse: http://localhost:8080/SuperVet/controlador?xpto=Start</li>
-</ol>
-
-## Configuração do Banco de Dados
-
-É necessário configurar o arquivo `ConnectionFactory.java` apontando para o local correpondente ao banco de dados.<br/><br/>
+Foi utilizaado o JDBC como middleware e é necessário configurar o arquivo `ConexaoJDBCFactory.java` apontando para o local correpondente ao banco de dados.<br/><br/>
 
 ```
 package com.supervet.dao;
@@ -154,3 +129,25 @@ public class ConexaoJDBCFactory {
 }
 
 ```
+
+# Como Executar o Projeto
+
+Ferramentass utilizadas:
+
+ - [MySQL](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi)
+ - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
+ - [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
+ - [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+
+## Download do projeto
+
+<ol>
+  <li>Faça o CLONE deste repositório.</li>
+  <li>Faça download e instalação do Eclipse IDE no link sugerido em Ferramentass utilizadas.</li>
+  <li>Faça download e instalação do MySQL no link sugerido em Ferramentass utilizadas.</li>
+  <li>O conector JDBC (jar) já está adicionado neste projeto.</li>
+  <li>Com o projeto aberto no Eclipse, clique com o botão direito do mouse se selecione: Run As -> Run on Server.</li>
+  <li>Realize as configurações recomendadas.</li>
+  <li>Após configurar as ferramentas acima, acesse: <http://localhost:8080/SuperVet/controlador?xpto=Start></li>
+</ol>
+

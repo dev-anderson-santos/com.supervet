@@ -1,3 +1,4 @@
+<%@page import="com.supervet.model.Funcionario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -19,7 +20,7 @@
     		<div class="content">
    			<c:import url="componentes/header.jsp"></c:import>    		                       
            
-            <h2>Olá, ${funcionario_logado.nome}!</h2>
+            <h2>Olï¿½, ${funcionario_logado.nome}!</h2>
             <hr>
 	            <h1>Dashboard</h1>
 	            <div class="row">
@@ -29,12 +30,12 @@
 			            <div class="inner">
 			              <h3>${ count_fun }</h3>
 			
-			              <p>Funcionários</p>
+			              <p>Funcionï¿½rios</p>
 			            </div>
 			            <div class="icon">
 			              <i class="ion ion-bag"></i>
 			            </div>
-			            <a href="controlador?xpto=MostrarFuncionarios" class="small-box-footer">Mais informações</a>
+			            <a href="controlador?xpto=MostrarFuncionarios" class="small-box-footer">Mais informaï¿½ï¿½es</a>
 			          </div>
 			        </div>
 			        <!-- ./col -->
@@ -49,7 +50,7 @@
 			            <div class="icon">
 			              <i class="ion ion-stats-bars"></i>
 			            </div>
-			            <a href="controlador?xpto=MostrarClientes" class="small-box-footer">Mais informações</a>
+			            <a href="controlador?xpto=MostrarClientes" class="small-box-footer">Mais informaï¿½ï¿½es</a>
 			          </div>
 			        </div>
 			        <!-- ./col -->
@@ -63,7 +64,7 @@
 			            <div class="icon">
 			              <i class="ion ion-person-add"></i>
 			            </div>
-			            <a href="controlador?xpto=MostrarConsultas" class="small-box-footer">Mais informações</a>
+			            <a href="controlador?xpto=MostrarConsultas" class="small-box-footer">Mais informaï¿½ï¿½es</a>
 			          </div>
 			        </div>
 			        <!-- ./col -->
@@ -78,22 +79,22 @@
 			            <div class="icon">
 			              <i class="ion ion-pie-graph"></i>
 			            </div>
-			            <a href="controlador?xpto=MostrarAnimais" class="small-box-footer">Mais informações</a>
+			            <a href="controlador?xpto=MostrarAnimais" class="small-box-footer">Mais informaï¿½ï¿½es</a>
 			          </div>
 			        </div>
 			        <!-- ./col -->
 			      </div>          
 	            
 	            <%
-		            String checar_sessao = (String) session.getAttribute("nome_logado");
-	                if (checar_sessao == null) {
-	                	request.setAttribute("mensagem", "É necessário realizar o login para continuar acessando.");
-	                    response.sendRedirect("controlador?xpto=Index");
-	                } else if (request.getParameter("acao") != null && request.getParameter("acao").equals("logout")) {
-	                    session.invalidate();
-	                    response.sendRedirect("controlador?xpto=Index");
-	                }
-	            %>
+					Funcionario func_logado = (Funcionario) session.getAttribute("funcionario_logado");
+					if (func_logado == null) {
+						request.setAttribute("mensagem", "É necessário realizar o login para continuar acessando.");
+						response.sendRedirect("controlador?xpto=Index");
+					} else if (request.getParameter("acao") != null && request.getParameter("acao").equals("logout")) {
+						session.invalidate();
+						response.sendRedirect("controlador?xpto=Index");
+					}
+				%>
 	            
 	            
 	            <br>

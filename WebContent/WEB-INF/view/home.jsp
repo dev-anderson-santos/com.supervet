@@ -1,3 +1,4 @@
+<%@page import="com.supervet.model.Funcionario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -19,7 +20,7 @@
     		<div class="content">
     			<c:import url="componentes/header.jsp"></c:import>    		                       
             
-	            <h2>Olá, ${funcionario_logado.nome}!</h2>
+	            <h2>Olï¿½, ${funcionario_logado.nome}!</h2>
 	            <hr>
 	            
 	            <div class="home-cards">
@@ -27,9 +28,9 @@
 	            <div class="card" style="width: 18rem;">
 				  <img src="img/funcionarios.png" class="card-img-top" alt="Consultas">
 				  <div class="card-body">
-				    <h5 class="card-title">Funcionários</h5>
-				    <p class="card-text">Acessar relação de funcionários.</p>
-				    <a href="controlador?xpto=MostrarFuncionarios" class="btn btn-primary">Funcionários</a>
+				    <h5 class="card-title">Funcionï¿½rios</h5>
+				    <p class="card-text">Acessar relaï¿½ï¿½o de funcionï¿½rios.</p>
+				    <a href="controlador?xpto=MostrarFuncionarios" class="btn btn-primary">Funcionï¿½rios</a>
 				  </div>
 				</div>            	            
 	            
@@ -57,15 +58,15 @@
 	            </div>            
 	            
 	            <%
-		            String checar_sessao = (String) session.getAttribute("nome_logado");
-	                if (checar_sessao == null) {
-	                	request.setAttribute("mensagem", "É necessário realizar o login para continuar acessando.");
-	                    response.sendRedirect("controlador?xpto=Index");
-	                } else if (request.getParameter("acao") != null && request.getParameter("acao").equals("logout")) {
-	                    session.invalidate();
-	                    response.sendRedirect("controlador?xpto=Index");
-	                }
-	            %>
+					Funcionario func_logado = (Funcionario) session.getAttribute("funcionario_logado");
+					if (func_logado == null) {
+						request.setAttribute("mensagem", "É necessário realizar o login para continuar acessando.");
+						response.sendRedirect("controlador?xpto=Index");
+					} else if (request.getParameter("acao") != null && request.getParameter("acao").equals("logout")) {
+						session.invalidate();
+						response.sendRedirect("controlador?xpto=Index");
+					}
+				%>
 	            
 	            
 	            <br>

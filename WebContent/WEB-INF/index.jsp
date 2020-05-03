@@ -52,10 +52,15 @@
 		            </form>
 		            
 		            <%		            	
-		                String checar_sessao = (String) session.getAttribute("nome_logado");
-		                if (checar_sessao != null) {
+		                String func_logado = (String) session.getAttribute("funcionario_logado");
+		                String cli_logado = (String) session.getAttribute("cliente_logado");
+		                
+		                if (func_logado != null) {
 		                    response.sendRedirect("controlador?xpto=Home");
-		                }
+						} 
+						if (cli_logado != null) {
+							response.sendRedirect("controlador?xpto=HomeCliente");
+						}
 		                
 		                String senha = request.getParameter("senha");
 		                String email = request.getParameter("email");
@@ -65,8 +70,7 @@
 		                    if (funcDAO.validarLogin(email, senha)) {
 		                        Funcionario func = funcDAO.getFuncionario(email, senha);
 		                        
-		                        session.setAttribute("funcionario_logado", func);
-		                        session.setAttribute("nome_logado", func.getNome());		                        
+		                        session.setAttribute("funcionario_logado", func);		                        
 		                        session.setAttribute("cargo_logado", func.getCargo());
 		                        response.sendRedirect("controlador?xpto=Home");
 		                    } else {
@@ -81,8 +85,6 @@
 		                			Cliente cli = clienteDAO.getClienteByMatricula(matricula);
 			                        
 			                        session.setAttribute("cliente_logado", cli);
-			                        session.setAttribute("cliente_nome_logado", cli.getNome());
-			                        session.setAttribute("cliente_matricula", cli.getMatricula());
 			                        response.sendRedirect("controlador?xpto=HomeCliente");
 		                		} else {
 			                        request.setAttribute("mensagem", "Login inválido.");

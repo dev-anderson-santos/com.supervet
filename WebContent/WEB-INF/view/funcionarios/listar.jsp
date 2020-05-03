@@ -1,3 +1,4 @@
+<%@page import="com.supervet.model.Funcionario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -16,7 +17,18 @@
     	<div class="container">
 		        <div class="content">
 	    			<c:import url="../componentes/header.jsp"></c:import>    		                       
-	            
+					
+					<%
+						Funcionario func_logado = (Funcionario) session.getAttribute("funcionario_logado");
+						if (func_logado == null) {
+							request.setAttribute("mensagem", "É necessário realizar o login para continuar acessando.");
+							response.sendRedirect("controlador?xpto=Index");
+						} else if (request.getParameter("acao") != null && request.getParameter("acao").equals("logout")) {
+							session.invalidate();
+							response.sendRedirect("controlador?xpto=Index");
+						}
+					%>
+
 		            <h2>Olá, ${funcionario_logado.nome}!</h2>
 		            <hr>
 		            <c:if test="${mensagem != null}">
