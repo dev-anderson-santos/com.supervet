@@ -54,12 +54,12 @@ O aluno deverá ser capaz de desenvolver um sistema que realize as operações C
   <li>Programa deverá ser acompanhado da descrição da aplicação implementada</li>
 </ul>
 
-# Sobre o Projeto
+# O projeto
 
-O projeto foi desenvolvido utilizando:
+Ferramentass utilizadas:
 
- - [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
- - [MySQL](https://www.sqlite.org/download.html)
+ - <a href="#eclipse">[Eclipse IDE]</a>(https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe)
+ - [MySQL](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi)
  - [Apache Tomcat7](https://tomcat.apache.org/download-70.cgi)
  - [Bootstrap 4.1](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
 
@@ -74,13 +74,15 @@ Para implementação da `interface` padrão das `classes DAO`, foi utilizada a t
 A interface padrão dos `COMMANDS` segue o modelo:
 
 ```
-package commands;
+package com.supervet.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public interface FrontCommandInterface {
-	public void execute(HttpServletRequest request, HttpServletResponse response);
+public interface CommandInterface {
+
+    public void executar(HttpServletRequest req, HttpServletResponse res);
+
 }
 ```
 A interface padrão as `Classes DAO` segue o modelo:
@@ -88,12 +90,12 @@ A interface padrão as `Classes DAO` segue o modelo:
 Tabelas
 
 ```
-package dao;
+package com.supervet.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface BasicTableDAO<T> {
+public interface GenericDAO<T> {
 
 	public List<T> getAll() throws SQLException, ClassNotFoundException;
 
@@ -108,41 +110,20 @@ public interface BasicTableDAO<T> {
 	public int count() throws SQLException, ClassNotFoundException;
 	
 	public int lastId() throws SQLException, ClassNotFoundException;
-
 }
 
 ```
-
-Views
-
-```
-package dao;
-
-import java.sql.SQLException;
-import java.util.List;
-
-public interface BasicViewDAO<T> {
-
-	public List<T> getAll() throws SQLException, ClassNotFoundException;
-
-	public T getById(int id) throws SQLException, ClassNotFoundException;
-
-	public int count() throws SQLException, ClassNotFoundException;
-	
-	public int lastId() throws SQLException, ClassNotFoundException;
-
-}
-```
+## Foi necessário criar outros métodos nas classes DAO devido a necessidade.
 
 # Como Executar o Projeto
 
 ## Download do projeto
 
-Faça o CLONE deste repositório para seu ambiente de preferência para a estrutura raiz dda unidade Ex: D:\ evitando assim uma hierarquia de pastas muito extensa.
+<ul>
+  <ol>Faça o CLONE deste repositório.</ol>
+  <ol>Faça download do Eclipse IDE no link sugerido em <div id="eclipse">*Ferramentass utilizadas*</div>.</ol>
+</ul>
 
-Faça download do Eclipse IDE:
-
- - [Link de Download](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-03/R/eclipse-inst-win64.exe")
  
 Faça Download das bibliotecas do SQLite: 
  
