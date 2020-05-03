@@ -22,7 +22,6 @@ public class Setup implements CommandInterface {
     public void executar(HttpServletRequest req, HttpServletResponse res) {
         try {
             
-//            stDAO.dropTables();
             stDAO.createDatabase();
             
             this.popularBanco();

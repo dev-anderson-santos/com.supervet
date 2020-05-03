@@ -68,18 +68,6 @@ Na imagem abaixo, é possível ver o desenvolvimento do Front-Controller utiliza
 <img src="https://github.com/dev-anderson-santos/com.supervet/blob/master/WebContent/img/command_front_servlet.PNG">
 
 
-## Interface `COMMANDS`:
-
-```
-package com.supervet.command;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-public interface CommandInterface {
-    public void executar(HttpServletRequest req, HttpServletResponse res);
-}
-```
 ## `DAO Genérico` comum
 
 ```
@@ -148,6 +136,6 @@ Ferramentass utilizadas:
   <li>O conector JDBC (jar) já está adicionado neste projeto.</li>
   <li>Com o projeto aberto no Eclipse, clique com o botão direito do mouse se selecione: Run As -> Run on Server.</li>
   <li>Realize as configurações recomendadas.</li>
-  <li>Após configurar as ferramentas acima, acesse: <http://localhost:8080/SuperVet/controlador?xpto=Start></li>
+  <li>Após configurar as ferramentas acima, acesse: http://localhost:8080/SuperVet/controlador?xpto=Start</li>
 </ol>
 
